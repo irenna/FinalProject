@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Remind Me</string>
-    <string name="tasks_empty">No reminders found!</string>
+    <string name="text_reminders_empty">No text reminders found!</string>
+    <string name="notification_reminders_empty">No notification reminders found!</string>
 
     <string name="delete">Delete Task</string>
     <string name="done">Done</string>
