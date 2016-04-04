@@ -77,6 +77,7 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
         getMenuInflater().inflate(R.menu.action_bar, menu);
 
         if(id == 0) menu.removeItem(R.id.action_delete);

@@ -24,12 +24,16 @@ public class DisplayTextRemindersActivity extends BaseActivity {
 
         db = RemindersDBHelper.getInstance(getApplicationContext());
         ArrayList<TextReminder> tmList = db.getAllTextReminders();
-
         ListView listViewTextReminders = (ListView) findViewById(R.id.listViewTextReminders);
-        TextReminderListAdapter adapter = new TextReminderListAdapter(this, tmList);
-        listViewTextReminders.setAdapter(adapter);
-        listViewTextReminders.setEmptyView(findViewById(R.id.txtEmpty));
 
+        if(tmList.size() > 0) {
+
+            TextReminderListAdapter adapter = new TextReminderListAdapter(this, tmList);
+            listViewTextReminders.setAdapter(adapter);
+        }
+
+
+        listViewTextReminders.setEmptyView(findViewById(R.id.txtEmpty));
         listViewTextReminders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
