@@ -57,7 +57,7 @@ public class DisplayTextRemindersActivity extends BaseActivity {
 
         menu.removeItem(R.id.action_cancel);
         menu.removeItem(R.id.action_delete);
-        menu.removeItem(R.id.action_done);
+        menu.removeItem(R.id.action_save);
         menu.removeItem(R.id.action_tm);
 
         return super.onCreateOptionsMenu(menu);
@@ -67,7 +67,7 @@ public class DisplayTextRemindersActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_new:
-                newTextReminder();
+                selectNew(TextReminderActivity.class);
                 break;
             case R.id.action_fav:
                 selectFavourites();
@@ -82,11 +82,6 @@ public class DisplayTextRemindersActivity extends BaseActivity {
                 return super.onOptionsItemSelected(item);
         }
         return true;
-    }
-
-    protected void newTextReminder() {
-        Intent i = new Intent(this, TextReminderActivity.class);
-        startActivity(i);
     }
 
 }

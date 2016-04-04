@@ -1,5 +1,6 @@
 package com.comp3617.finalproject.meggsage;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,8 +26,29 @@ public class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Overridden by separate classes.  Here so method name is the same for all.
+    protected void selectSave(){
+
+    }
+
     //These are the same across all activities.
-    protected void selectTextReminder() {
+    protected void selectNew(Class newActivity) {
+        Intent i = new Intent(this, newActivity);
+        startActivity(i);
+    }
+
+    protected void selectDelete(long id, int type) {
+        DialogFragment frag = DeleteConfirmationFragment.newInstance(id, type);
+        frag.show(getFragmentManager(), "delete");
+    }
+
+    protected void selectCancel(Class prevActivity) {
+        Intent i = new Intent(this, prevActivity);
+        startActivity(i);
+    }
+
+    //Used through out code to jump back to DisplayTextRemindersActivity
+    protected void goToDisplayTextReminder() {
         Intent i = new Intent(this, DisplayTextRemindersActivity.class);
         startActivity(i);
     }

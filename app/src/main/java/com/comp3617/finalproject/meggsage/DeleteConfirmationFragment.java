@@ -55,7 +55,7 @@ public class DeleteConfirmationFragment extends DialogFragment {
                 }
                 db.close();
                 if(action != null && success){
-                    Toast.makeText(getActivity(), R.string.conf_del_success, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getResources().getString(R.string.conf_del_success), Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getActivity(), action);
                     startActivity(i);
                 } else {

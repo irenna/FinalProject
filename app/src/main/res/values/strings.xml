@@ -30,7 +30,7 @@
 
 
     <string name="label_title">Title:</string>
-    <string name="label_due_date">Due Date:</string>
+    <string name="label_due_date">Reminder Date:</string>
     <string name="label_priority">Priority:</string>
     <string name="label_status">Status:</string>
     <string name="label_message">Message:</string>
@@ -41,10 +41,13 @@
     <string name="conf_del_yes">Yes</string>
     <string name="conf_del_no">No</string>
 
+    <string name="err_phone_number_blank">Error: Phone number cannot be blank</string>
     <string name="err_title_blank">Error: Title cannot be blank</string>
     <string name="err_message_blank">Error: Message cannot be blank</string>
-    <string name="err_due_date">Error: Due Date cannot be in the past</string>
-    <string name="err_due_date_blank">Error: Due Date cannot be blank</string>
+    <string name="err_due_date">Error: Date cannot be in the past</string>
+    <string name="err_due_date_blank">Error: Date cannot be blank</string>
+    <string name="err_due_time_blank">Error: Time cannot be blank</string>
+    <string name="err_reminder_not_found">Error: Reminder not found</string>
 
     <string name="conf_update">Reminder updated</string>
     <string name="conf_create">Reminder added</string>

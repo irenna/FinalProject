@@ -64,7 +64,7 @@ public class RemindersDBHelper extends SQLiteOpenHelper {
 
     /** TEXT REMINDER METHODS  */
 
-    public long createToDo(TextReminder tm) {
+    public long createTextReminder(TextReminder tm) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
