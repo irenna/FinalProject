@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="reminder_status_icons">
+        <item>0</item>
+        <item>@drawable/ic_done_white_24dp</item>
+        <item>@drawable/ic_clear_white_24dp</item>
+    </array>
+
+
+</resources>

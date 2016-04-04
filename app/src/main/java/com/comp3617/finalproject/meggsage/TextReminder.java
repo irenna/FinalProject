@@ -15,7 +15,7 @@ public class TextReminder {
     private String recipientName;
     private String recipientNumber;
     private long dueDate;
-    private int sent;
+    private int sentStatus;
     private int active;
 
     public int getActive() {
@@ -40,7 +40,7 @@ public class TextReminder {
 
     public String getDueDateString()  {
         Date d = new Date(dueDate);
-        SimpleDateFormat df = new SimpleDateFormat("EEE. MMM d, yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("EEE. MMM d, yyyy hh:mm");
         return df.format(d);
     }
 
@@ -80,12 +80,12 @@ public class TextReminder {
         this.recipientNumber = recipientNumber;
     }
 
-    public int getSent() {
-        return sent;
+    public int getSentStatus() {
+        return sentStatus;
     }
 
-    public void setSent(int sent) {
-        this.sent = sent;
+    public void setSentStatus(int sentStatus) {
+        this.sentStatus = sentStatus;
     }
 
     public String getTitle() {

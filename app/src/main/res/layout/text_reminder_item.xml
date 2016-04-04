@@ -36,8 +36,8 @@
             android:textColor="@android:color/black"
             android:text="Send success!" />
 
-
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,9 +78,6 @@
             android:singleLine="false" />
 
     </LinearLayout>
-
-
-
 
 
 </LinearLayout>

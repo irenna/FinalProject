@@ -27,13 +27,13 @@ public class RemindersDBHelper extends SQLiteOpenHelper {
     private static final String TM_COL_REC_NAME = "recipientName";
     private static final String TM_COL_REC_NUM = "recipientNumber";
     private static final String TM_COL_DUEDATE = "dueDate";
-    private static final String TM_COL_SENT = "sent";
+    private static final String TM_COL_SENT_STATUS = "sent";
     private static final String TM_COL_ACTIVE = "active";
 
     private static final String TM_CREATE_TABLE = "CREATE TABLE " + TM_TABLE + "(" + TM_COL_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT," + TM_COL_CREATEDATE + " INTEGER NOT NULL, "
             + TM_COL_TITLE + " TEXT NOT NULL, " + TM_COL_MESSAGE + " TEXT NOT NULL, " + TM_COL_REC_NAME + " TEXT, "
-            + TM_COL_REC_NUM + " TEXT NOT NULL, " + TM_COL_DUEDATE + " INTEGER NOT NULL, " + TM_COL_SENT + " INTEGER DEFAULT 0, "
+            + TM_COL_REC_NUM + " TEXT NOT NULL, " + TM_COL_DUEDATE + " INTEGER NOT NULL, " + TM_COL_SENT_STATUS + " INTEGER DEFAULT 0, "
             + TM_COL_ACTIVE + " INTEGER DEFAULT 1);";
 
 
@@ -97,7 +97,7 @@ public class RemindersDBHelper extends SQLiteOpenHelper {
         tm.setRecipientName(c.getString(c.getColumnIndex(TM_COL_REC_NAME)));
         tm.setRecipientNumber(c.getString(c.getColumnIndex(TM_COL_REC_NUM)));
         tm.setDueDate(c.getLong(c.getColumnIndex(TM_COL_DUEDATE)));
-        tm.setSent(c.getInt(c.getColumnIndex(TM_COL_SENT)));
+        tm.setSentStatus(c.getInt(c.getColumnIndex(TM_COL_SENT_STATUS)));
         tm.setActive(c.getInt(c.getColumnIndex(TM_COL_ACTIVE)));
 
         c.close();
@@ -123,7 +123,7 @@ public class RemindersDBHelper extends SQLiteOpenHelper {
             tm.setRecipientName(c.getString(c.getColumnIndex(TM_COL_REC_NAME)));
             tm.setRecipientNumber(c.getString(c.getColumnIndex(TM_COL_REC_NUM)));
             tm.setDueDate(c.getLong(c.getColumnIndex(TM_COL_DUEDATE)));
-            tm.setSent(c.getInt(c.getColumnIndex(TM_COL_SENT)));
+            tm.setSentStatus(c.getInt(c.getColumnIndex(TM_COL_SENT_STATUS)));
             tm.setActive(c.getInt(c.getColumnIndex(TM_COL_ACTIVE)));
             tms.add(tm);
         } while(c.moveToNext());
@@ -138,6 +138,8 @@ public class RemindersDBHelper extends SQLiteOpenHelper {
         cv.put(TM_COL_TITLE, tm.getTitle());
         cv.put(TM_COL_MESSAGE, tm.getMessage());
         String recName = (tm.getRecipientName().length() > 0) ? tm.getRecipientName() : null;
+        cv.put(TM_COL_SENT_STATUS, tm.getSentStatus());
+        cv.put(TM_COL_ACTIVE, tm.getActive());
         cv.put(TM_COL_REC_NAME, recName);
         cv.put(TM_COL_REC_NUM, tm.getRecipientNumber());
         cv.put(TM_COL_DUEDATE, tm.getDueDate());
