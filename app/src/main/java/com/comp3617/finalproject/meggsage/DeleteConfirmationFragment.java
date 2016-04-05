@@ -36,7 +36,7 @@ public class DeleteConfirmationFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final long id = getArguments().getInt("id");
+        final long id = getArguments().getLong("id");
         final int type = getArguments().getInt("type");
 
         AlertDialog.Builder conf = new AlertDialog.Builder(getActivity());
@@ -49,9 +49,11 @@ public class DeleteConfirmationFragment extends DialogFragment {
                 RemindersDBHelper db = RemindersDBHelper.getInstance(getActivity());
                 Class action = null;
                 boolean success = false;
+
                 if (type == TM_TYPE) {
                     success = db.deleteTextReminder(id);
                     action = DisplayTextRemindersActivity.class;
+                    Alarm.cancelAlarm(getContext().getApplicationContext(), type, id);
                 }
                 db.close();
                 if(action != null && success){

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.comp3617.finalproject.meggsage">
 
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +18,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".BaseActivity" />
-        <activity android:name=".TextReminderActivity"></activity>
+        <activity android:name=".TextReminderActivity" />
+
+        <receiver
+            android:name=".TextAlarmReceiver"
+            android:enabled="false"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

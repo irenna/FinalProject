@@ -108,6 +108,37 @@ public class RemindersDBHelper extends SQLiteOpenHelper {
         ArrayList<TextReminder> tms = new ArrayList<TextReminder>();
         String selectQuery = "SELECT  * FROM " + TM_TABLE;
 
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if(c.getCount() > 0) {
+            c.moveToFirst();
+            do {
+                TextReminder tm = new TextReminder();
+                tm.setId(c.getLong(c.getColumnIndex(TM_COL_ID)));
+                tm.setCreateDate(c.getLong(c.getColumnIndex(TM_COL_CREATEDATE)));
+                tm.setTitle(c.getString(c.getColumnIndex(TM_COL_TITLE)));
+                tm.setMessage(c.getString(c.getColumnIndex(TM_COL_MESSAGE)));
+                tm.setRecipientName(c.getString(c.getColumnIndex(TM_COL_REC_NAME)));
+                tm.setRecipientNumber(c.getString(c.getColumnIndex(TM_COL_REC_NUM)));
+                tm.setDueDate(c.getLong(c.getColumnIndex(TM_COL_DUEDATE)));
+                tm.setSentStatus(c.getInt(c.getColumnIndex(TM_COL_SENT_STATUS)));
+                tm.setActive(c.getInt(c.getColumnIndex(TM_COL_ACTIVE)));
+                tms.add(tm);
+            } while(c.moveToNext());
+        }
+
+        c.close();
+        return tms;
+    }
+
+    public ArrayList<TextReminder> getActiveTextReminders() {
+        ArrayList<TextReminder> tms = new ArrayList<TextReminder>();
+        String selectQuery = "SELECT  * FROM " + TM_TABLE + " WHERE " + TM_COL_ACTIVE + " = 1";
+
         Log.e(LOG, selectQuery);
 
         SQLiteDatabase db = this.getReadableDatabase();

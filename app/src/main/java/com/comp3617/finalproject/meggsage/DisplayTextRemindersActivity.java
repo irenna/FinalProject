@@ -13,9 +13,10 @@ import java.util.ArrayList;
 
 public class DisplayTextRemindersActivity extends BaseActivity {
 
-    private static final int TYPE = 1; //Used indicate textreminder
+    private static final int TM_TYPE = 0;
 
     private RemindersDBHelper db;
+    private TextReminderListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,29 +29,33 @@ public class DisplayTextRemindersActivity extends BaseActivity {
 
         if(tmList.size() > 0) {
 
-            TextReminderListAdapter adapter = new TextReminderListAdapter(this, tmList);
+            adapter = new TextReminderListAdapter(this, tmList);
             listViewTextReminders.setAdapter(adapter);
+
+            listViewTextReminders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent i = new Intent(DisplayTextRemindersActivity.this, TextReminderActivity.class);
+                    Long itemId = ((TextReminder)adapter.getItem(position)).getId();
+                    i.putExtra("id", itemId);
+                    startActivity(i);
+                }
+            });
+
+            listViewTextReminders.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    Long itemId = ((TextReminder)adapter.getItem(position)).getId();
+                    DialogFragment frag = DeleteConfirmationFragment.newInstance(itemId, TM_TYPE);
+                    frag.show(getFragmentManager(), "delete");
+                    return true;
+                }
+            });
         }
 
 
         listViewTextReminders.setEmptyView(findViewById(R.id.txtEmpty));
-        listViewTextReminders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(DisplayTextRemindersActivity.this, TextReminderActivity.class);
-                i.putExtra("id", id);
-                startActivity(i);
-            }
-        });
 
-        listViewTextReminders.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                DialogFragment frag = DeleteConfirmationFragment.newInstance(id, 1);
-                frag.show(getFragmentManager(), "delete");
-                return true;
-            }
-        });
 
     }
 

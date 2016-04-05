@@ -40,7 +40,7 @@ public class TextReminder {
 
     public String getDueDateString()  {
         Date d = new Date(dueDate);
-        SimpleDateFormat df = new SimpleDateFormat("EEE. MMM d, yyyy hh:mm");
+        SimpleDateFormat df = new SimpleDateFormat("EEE. MMM d, yyyy h:mm a");
         return df.format(d);
     }
 
