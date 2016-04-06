@@ -7,5 +7,18 @@
         <item>@drawable/ic_clear_white_24dp</item>
     </array>
 
+    <array name="colour_ids">
+        <item>@color/aqua</item>
+        <item>@color/blue</item>
+        <item>@color/brightgreen</item>
+        <item>@color/orange</item>
+        <item>@color/pink</item>
+        <item>@color/purple</item>
+        <item>@color/red</item>
+        <item>@color/white</item>
+        <item>@color/yellow</item>
+    </array>
+
+
 
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="Advanced Settings">
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Text Reminder Notifications">
+        <CheckBoxPreference android:defaultValue="true" android:summary="Enables notifications for when a text reminder is sent" android:key="trEnableNotifications" android:title="Enable Text Reminder Sent Notifications"/>
+        <RingtonePreference android:ringtoneType="notification" android:showSilent="true" android:key="trRingTone" />
+        <CheckBoxPreference android:defaultValue="true" android:summary="Enable vibrate for notifications when a text reminder is sent" android:key="trVibrate" />
+        <ListPreference android:entries="@array/colour_ids" android:entryValues="@array/colour_names" android:key="trColor" android:summary="Select the LED colour" android:title="Light Colour"/>
+    </PreferenceCategory>
+</PreferenceScreen>

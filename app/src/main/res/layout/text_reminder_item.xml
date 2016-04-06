@@ -3,7 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:useDefaultMargins="false">
+    android:useDefaultMargins="false"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
 
 
     <LinearLayout
@@ -14,51 +16,36 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/txtRecipient"
-            android:text="John Smith"
+            android:id="@+id/txtDueDate"
+            android:textColor="@color/colorAccent"
             android:layout_weight="1" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imgTextStatus"
-            android:src="@drawable/ic_done_white_24dp"
-            android:background="#ff0a0a" />
+            android:src="@drawable/ic_done_white_24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtTextStatus"
-            android:textColor="@android:color/black"
-            android:text="Send success!" />
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/txtRecipient"
+        android:singleLine="true" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Jan. 1st 1999 6:00pm"
-            android:id="@+id/txtDueDate"
-            android:textColor="@color/colorAccent"
-            android:layout_weight="1"
-            android:singleLine="true" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtTitle"
-            android:text="Title goes here"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:singleLine="true" />
-
-    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtTitle"
+        android:ellipsize="end"
+        android:singleLine="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,7 +57,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtMessage"
             android:textColor="@android:color/black"
-            android:text="the quick brown fox jumped over the slow lazy dog.  The quick brown fox jumped over the slow lazy dog."
             android:singleLine="false" />
 
     </LinearLayout>

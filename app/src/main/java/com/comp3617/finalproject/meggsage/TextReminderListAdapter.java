@@ -2,9 +2,9 @@ package com.comp3617.finalproject.meggsage;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.v4.content.ContextCompat;
+import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +59,14 @@ public class TextReminderListAdapter extends ArrayAdapter {
             txtTitle.setText(tm.getTitle());
         }
 
+        TextView txtRecipient = (TextView) v.findViewById(R.id.txtRecipient);
+        String recNum = PhoneNumberUtils.formatNumber(tm.getRecipientNumber());
+        if(tm.getRecipientName() != null) {
+            txtRecipient.setText(tm.getRecipientName() + " - " + recNum);
+        } else {
+            txtRecipient.setText(recNum);
+        }
+
         TextView txtMsg = (TextView) v.findViewById(R.id.txtMessage);
         txtMsg.setText(tm.getMessage());
 
@@ -71,11 +79,11 @@ public class TextReminderListAdapter extends ArrayAdapter {
         txtStatus.setText(textStatuses[status]);
         imgTextStatus.setImageResource(textStatusIcons.getResourceId(status, 0));
         if(status == 1) {
-            txtStatus.setTextColor(ContextCompat.getColor(context, Color.GREEN));
-            imgTextStatus.getDrawable().setColorFilter(ContextCompat.getColor(context, Color.GREEN), PorterDuff.Mode.SRC_ATOP);
+            txtStatus.setTextColor(ContextCompat.getColor(context, R.color.green));
+            imgTextStatus.getDrawable().setColorFilter(ContextCompat.getColor(context, R.color.green), PorterDuff.Mode.SRC_ATOP);
         } else if(status == 2) {
-            txtStatus.setTextColor(ContextCompat.getColor(context, Color.RED));
-            imgTextStatus.getDrawable().setColorFilter(ContextCompat.getColor(context, Color.RED), PorterDuff.Mode.SRC_ATOP);
+            txtStatus.setTextColor(ContextCompat.getColor(context, R.color.red));
+            imgTextStatus.getDrawable().setColorFilter(ContextCompat.getColor(context, R.color.red), PorterDuff.Mode.SRC_ATOP);
         }
 
         return v;

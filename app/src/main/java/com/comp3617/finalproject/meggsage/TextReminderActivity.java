@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.telephony.PhoneNumberUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,6 +60,7 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
         editTo = (EditText) findViewById(R.id.editTo);
         editTo.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
+
         editDate = (EditText) findViewById(R.id.editDate);
         editTime = (EditText) findViewById(R.id.editTime);
         editTitle = (EditText) findViewById(R.id.editTitle);
@@ -92,6 +92,7 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
 
         editDate.setOnClickListener(this);
         editTime.setOnClickListener(this);
+
 
     }
 
@@ -156,17 +157,17 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
                 return;
             }
         }
-        if(!PhoneNumberUtils.isGlobalPhoneNumber(inputTo)) {
+/*        if(!PhoneNumberUtils.isGlobalPhoneNumber(inputTo)) {
             Toast.makeText(context, getResources().getString(R.string.err_phone_number_invalid), Toast.LENGTH_LONG).show();
             return;
-        }
+        }*/
 
         Date dueDate;
 
         try {
             dueDate = dateTimeFormatter.parse(inputDate + " " + inputTime);
             Date today = new Date();
-            if(dueDate.before(today)) {
+            if (dueDate.before(today)) {
                 Toast.makeText(context, getResources().getString(R.string.err_due_date), Toast.LENGTH_LONG).show();
                 return;
             }
@@ -177,6 +178,14 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
             tr.setTitle(inputTitle);
             tr.setDueDate(dueDate.getTime());
             tr.setMessage(inputMsg);
+            //TODO find a better way of dealing with this
+            //makes sure the phone number hasn't changed since the name was set
+            if(txtToName.getText().length() > 0  && recipientNumber != null) {
+                if(!recipientNumber.equals(editTo.getText().toString())) {
+                    tr.setRecipientName(txtToName.getText().toString());
+                }
+
+            }
 
             db = RemindersDBHelper.getInstance(getApplicationContext());
             if(id > 0) {
@@ -189,7 +198,7 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
                 tr.setId(newId);
                 if(newId > 0) Toast.makeText(context, getResources().getString(R.string.conf_create), Toast.LENGTH_LONG).show();
             }
-            Alarm.setAlarm(this.getApplicationContext(), TM_TYPE, tr.getId(), tr.getDueDate());
+            if(tr.getActive() == ACTIVE) Alarm.setAlarm(this.getApplicationContext(), TM_TYPE, tr.getId(), tr.getDueDate());
             goToDisplayTextReminder();
 
         } catch (ParseException e) {

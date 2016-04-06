@@ -165,6 +165,26 @@ public class RemindersDBHelper extends SQLiteOpenHelper {
         return tms;
     }
 
+    public boolean sendTextReminder(long tm_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(TM_COL_SENT_STATUS, 1);
+        cv.put(TM_COL_ACTIVE, 0);
+
+        // updating row
+        return db.update(TM_TABLE, cv, TM_COL_ID + " = " + tm_id, null) > 0;
+    }
+
+    public boolean failTextReminder(long tm_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(TM_COL_SENT_STATUS, 2);
+        cv.put(TM_COL_ACTIVE, 0);
+
+        // updating row
+        return db.update(TM_TABLE, cv, TM_COL_ID + " = " + tm_id, null) > 0;
+    }
+
     public int updateTextReminder(TextReminder tm) {
         SQLiteDatabase db = this.getWritableDatabase();
 

@@ -8,22 +8,51 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DisplayTextRemindersActivity extends BaseActivity {
 
     private static final int TM_TYPE = 0;
-
+    private static final String ALARMS_FAILED = "alarms_failed";
     private RemindersDBHelper db;
     private TextReminderListAdapter adapter;
+    private static final String CONF_SENT = "sent";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_text_reminders);
+        
+        if(getIntent() != null) {
+            if(getIntent().getBooleanExtra(CONF_SENT, false)) {
+                Toast.makeText(this, getResources().getString(R.string.conf_tr_sent2), Toast.LENGTH_LONG).show();
+            }
+        }
 
         db = RemindersDBHelper.getInstance(getApplicationContext());
+        
+        //Check if any reminders should have sent but haven't (ex: device was off)
+        Date now = new Date();
+        ArrayList<TextReminder> tmCheckList = db.getActiveTextReminders();
+        boolean alarmsFailed = false;
+        for (TextReminder t: tmCheckList) {
+            if(t.getDueDate() < now.getTime()) {
+                db.failTextReminder(t.getId());
+                alarmsFailed = true;
+            }
+        }
+
+        if(getIntent() != null) {
+            if(getIntent().getBooleanExtra(ALARMS_FAILED, false)) alarmsFailed = true;
+        }
+
+
+        if(alarmsFailed) Toast.makeText(this, getResources().getString(R.string.msg_tr_failed), Toast.LENGTH_LONG).show();
+        
         ArrayList<TextReminder> tmList = db.getAllTextReminders();
         ListView listViewTextReminders = (ListView) findViewById(R.id.listViewTextReminders);
 

@@ -29,6 +29,24 @@
     </string-array>
 
 
+    <string-array name="colour_names">
+        <item>Aqua</item>
+        <item>Blue</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Yellow</item>
+    </string-array>
+
+    <string-array name="activities">
+        <item>Text Reminders</item>
+        <item>Notification Reminders</item>
+    </string-array>
+
+
     <string name="label_title">Title:</string>
     <string name="label_due_date">Reminder Date:</string>
     <string name="label_priority">Priority:</string>
@@ -53,6 +71,11 @@
     <string name="conf_update">Reminder updated</string>
     <string name="conf_create">Reminder added</string>
     <string name="conf_del_success">Reminder deleted</string>
+    <string name="conf_tr_title">Text Reminder</string>
+    <string name="conf_tr_sent">Text reminder successfully sent to </string>
+    <string name="conf_tr_sent2">Text reminder successfully sent!</string>
+
+    <string name="msg_tr_failed">Some reminders did not send :(</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
