@@ -53,11 +53,11 @@ public class DeleteConfirmationFragment extends DialogFragment {
                 if (type == TM_TYPE) {
                     success = db.deleteTextReminder(id);
                     action = DisplayTextRemindersActivity.class;
-                    Alarm.cancelAlarm(getContext().getApplicationContext(), type, id);
+                    Alarm.cancelAlarm(getActivity(), type, id);
                 } else if (type == NR_TYPE) {
                     success = db.deleteNotificationReminder(id);
                     action = DisplayTextRemindersActivity.class;
-                    Alarm.cancelAlarm(getContext().getApplicationContext(), type, id);
+                    Alarm.cancelAlarm(getActivity(), type, id);
                 }
                 db.close();
                 if (action != null && success) {

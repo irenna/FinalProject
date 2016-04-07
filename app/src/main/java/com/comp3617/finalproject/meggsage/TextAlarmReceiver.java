@@ -103,6 +103,9 @@ public class TextAlarmReceiver extends BroadcastReceiver {
             PendingIntent pi = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pi);
 
+            db.close();
+            manager.notify(NOTIFICATION_ID, builder.build());
+
         } else if(type == NR_TYPE) {
 
             NotificationReminder nr = db.getNotificationReminder(id);
@@ -143,11 +146,11 @@ public class TextAlarmReceiver extends BroadcastReceiver {
 
             PendingIntent pi = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pi);
+
+            db.close();
+            manager.notify(NOTIFICATION_ID, builder.build());
         }
 
-
-        db.close();
-        manager.notify(NOTIFICATION_ID, builder.build());
 
     }
 
