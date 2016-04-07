@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.RingtonePreference;
-import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,38 @@ public class SettingsActivity extends AppCompatActivity {
                 .commit();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
+        getMenuInflater().inflate(R.menu.action_bar, menu);
+
+        menu.removeItem(R.id.action_new);
+        menu.removeItem(R.id.action_cancel);
+        menu.removeItem(R.id.action_delete);
+        menu.removeItem(R.id.action_save);
+        menu.removeItem(R.id.action_fav);
+        menu.removeItem(R.id.action_settings);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+
+            case R.id.action_tm:
+                goToDisplayTextReminder();
+                break;
+            case R.id.action_nm:
+                goToDisplayNotificationReminder();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
 
     public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override

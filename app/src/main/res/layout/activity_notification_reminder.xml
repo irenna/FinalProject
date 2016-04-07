@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,6 +7,157 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.comp3617.finalproject.meggsage.NotificationReminder">
+    tools:context=".NotificationReminderActivity"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:text="@string/label_title"
+            android:layout_weight="1" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:id="@+id/editTitle"
+            android:layout_weight="3"
+            android:layout_width="0dip"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_status"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:layout_width="0dip"
+            android:layout_gravity="fill_horizontal"
+            android:layout_height="wrap_content"
+            android:id="@+id/spStatuses"
+            android:entries="@array/reminder_statuses"
+            android:layout_weight="3" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_importance"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:layout_width="0dip"
+            android:layout_gravity="fill_horizontal"
+            android:layout_height="wrap_content"
+            android:id="@+id/spImportance"
+            android:entries="@array/importance"
+            android:layout_weight="3" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_colour"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:layout_width="0dip"
+            android:layout_gravity="fill_horizontal"
+            android:layout_height="wrap_content"
+            android:id="@+id/spColour"
+            android:entries="@array/colour_names"
+            android:layout_weight="3" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_due_date" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="0dip"
+            android:layout_gravity="fill_horizontal"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:id="@+id/editDate"
+            android:layout_weight="2" />
+
+        <EditText
+            android:layout_width="0dip"
+            android:layout_gravity="fill_horizontal"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:id="@+id/editTime"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_recurrence"
+            android:layout_weight="1" />
+
+        <Spinner
+            android:layout_width="0dip"
+            android:layout_gravity="fill_horizontal"
+            android:layout_height="wrap_content"
+            android:id="@+id/spRecurrence"
+            android:entries="@array/time_intervals"
+            android:layout_weight="3" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_message" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_gravity="fill_vertical"
+        android:id="@+id/editMessage"
+        android:gravity="top"
+        android:layout_weight="1"
+        android:inputType="textMultiLine" />
+
+
+
+
+</LinearLayout>

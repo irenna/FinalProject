@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
+    private static final String FROM_ACT = "from_other_act";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+
     }
 
 
@@ -39,11 +41,14 @@ public class BaseActivity extends AppCompatActivity {
     //Used through out code to jump back to DisplayTextRemindersActivity
     protected void goToDisplayTextReminder() {
         Intent i = new Intent(this, DisplayTextRemindersActivity.class);
+        i.putExtra(FROM_ACT, true);
         startActivity(i);
     }
 
-    protected void selectNotificationReminder() {
+    //Used through out code to jump back to DisplayTextRemindersActivity
+    protected void goToDisplayNotificationReminder() {
         Intent i = new Intent(this, DisplayNotificationRemindersActivity.class);
+        i.putExtra(FROM_ACT, true);
         startActivity(i);
     }
 

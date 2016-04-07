@@ -53,16 +53,18 @@ public class TextReminderListAdapter extends ArrayAdapter {
         }
 
         TextView txtTitle = (TextView) v.findViewById(R.id.txtTitle);
+        txtTitle.setText(tm.getTitle());
+
+
         if(tm.getActive() == 0) {
-            txtTitle.setText("("+reminderStatuses[tm.getActive()]+") " + tm.getTitle());
-        } else {
-            txtTitle.setText(tm.getTitle());
+            TextView txtActive = (TextView) v.findViewById(R.id.txtActive);
+            txtActive.setText(reminderStatuses[tm.getActive()]);
         }
 
         TextView txtRecipient = (TextView) v.findViewById(R.id.txtRecipient);
         String recNum = PhoneNumberUtils.formatNumber(tm.getRecipientNumber());
         if(tm.getRecipientName() != null) {
-            txtRecipient.setText(tm.getRecipientName() + " - " + recNum);
+            txtRecipient.setText(tm.getRecipientName() + " " + recNum);
         } else {
             txtRecipient.setText(recNum);
         }
@@ -79,11 +81,14 @@ public class TextReminderListAdapter extends ArrayAdapter {
         txtStatus.setText(textStatuses[status]);
         imgTextStatus.setImageResource(textStatusIcons.getResourceId(status, 0));
         if(status == 1) {
-            txtStatus.setTextColor(ContextCompat.getColor(context, R.color.green));
-            imgTextStatus.getDrawable().setColorFilter(ContextCompat.getColor(context, R.color.green), PorterDuff.Mode.SRC_ATOP);
+            txtStatus.setTextColor(ContextCompat.getColor(context, R.color.tealgreen));
+            imgTextStatus.getDrawable().setColorFilter(ContextCompat.getColor(context, R.color.tealgreen), PorterDuff.Mode.SRC_ATOP);
         } else if(status == 2) {
-            txtStatus.setTextColor(ContextCompat.getColor(context, R.color.red));
-            imgTextStatus.getDrawable().setColorFilter(ContextCompat.getColor(context, R.color.red), PorterDuff.Mode.SRC_ATOP);
+            txtStatus.setTextColor(ContextCompat.getColor(context, R.color.redpink));
+            imgTextStatus.getDrawable().setColorFilter(ContextCompat.getColor(context, R.color.redpink), PorterDuff.Mode.SRC_ATOP);
+        } else if(status == 0) {
+            txtStatus.setTextColor(ContextCompat.getColor(context, R.color.grey));
+            imgTextStatus.getDrawable().setColorFilter(ContextCompat.getColor(context, R.color.grey), PorterDuff.Mode.SRC_ATOP);
         }
 
         return v;

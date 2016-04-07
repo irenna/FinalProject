@@ -2,7 +2,9 @@ package com.comp3617.finalproject.meggsage;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,16 +22,24 @@ public class DisplayTextRemindersActivity extends BaseActivity {
     private RemindersDBHelper db;
     private TextReminderListAdapter adapter;
     private static final String CONF_SENT = "sent";
+    private static final String FROM_ACT = "from_other_act";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_text_reminders);
-        
+
+
         if(getIntent() != null) {
             if(getIntent().getBooleanExtra(CONF_SENT, false)) {
                 Toast.makeText(this, getResources().getString(R.string.conf_tr_sent2), Toast.LENGTH_LONG).show();
+            } else if (!getIntent().getBooleanExtra(FROM_ACT, false)) {
+                SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(this);
+                String defaultAct = SP.getString("default_activity", "");
+                if (defaultAct.equals(getResources().getString(R.string.notification_reminder))) {
+                    goToDisplayNotificationReminder();
+                }
             }
         }
 
@@ -97,6 +107,7 @@ public class DisplayTextRemindersActivity extends BaseActivity {
         menu.removeItem(R.id.action_delete);
         menu.removeItem(R.id.action_save);
         menu.removeItem(R.id.action_tm);
+        menu.removeItem(R.id.action_fav);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -111,7 +122,7 @@ public class DisplayTextRemindersActivity extends BaseActivity {
                 selectFavourites();
                 break;
             case R.id.action_nm:
-                selectNotificationReminder();
+                goToDisplayNotificationReminder();
                 break;
             case R.id.action_settings:
                 selectSettings();

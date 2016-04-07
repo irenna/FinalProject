@@ -2,43 +2,42 @@ package com.comp3617.finalproject.meggsage;
 
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TextReminderActivity extends BaseActivity implements View.OnClickListener {
+public class NotificationReminderActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final int TM_TYPE = 0; //Used indicate textreminder
+
+
+    private static final int NR_TYPE = 1; //Used indicate textreminder
     private static final int ACTIVE = 1;
     private static final int REQ_CODE_CONTACT= 99;
     private RemindersDBHelper db;
     private long id;
     private long originalDueDate;
 
-    private EditText editTo;
+
     private EditText editDate;
     private EditText editTime;
     private EditText editTitle;
     private Spinner spStatuses;
+    private Spinner spImportance;
+    private Spinner spColour;
+    private Spinner spRecurrence;
     private EditText editMessage;
-    private TextView txtToName;
 
-    private String recipientNumber;
-    private String recipientName;
 
     private Context context;
 
@@ -46,49 +45,62 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
     private static SimpleDateFormat timeFormatter = new SimpleDateFormat("h:mm a");
     private static SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("EEE. MMM d, yyyy h:mm a");
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_text_reminder);
+        setContentView(R.layout.activity_notification_reminder);
 
         context = this;
 
         id = getIntent().getLongExtra("id", 0);
 
-        editTo = (EditText) findViewById(R.id.editTo);
-        editTo.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-
-
         editDate = (EditText) findViewById(R.id.editDate);
         editTime = (EditText) findViewById(R.id.editTime);
         editTitle = (EditText) findViewById(R.id.editTitle);
         spStatuses = (Spinner) findViewById(R.id.spStatuses);
+        spImportance = (Spinner) findViewById(R.id.spImportance);
+        spColour = (Spinner) findViewById(R.id.spColour);
+        spRecurrence = (Spinner) findViewById(R.id.spRecurrence);
         editMessage = (EditText) findViewById(R.id.editMessage);
-        txtToName = (TextView) findViewById(R.id.txtToName);
+
 
         if(id > 0) {
             db = RemindersDBHelper.getInstance(getApplicationContext());
-            TextReminder tr = db.getTextReminder(id);
+            NotificationReminder tr = db.getNotificationReminder(id);
             db.close();
             if(tr == null) {
                 Toast.makeText(this, getResources().getString(R.string.err_reminder_not_found), Toast.LENGTH_LONG).show();
-                goToDisplayTextReminder(); //goes to DisplayTextRemindersActivity
+                goToDisplayNotificationReminder(); //goes to DisplayNotificationsActivity
             }
 
-            editTo.setText(tr.getRecipientNumber());
             originalDueDate = tr.getDueDate();
             Date d = new Date(originalDueDate);
             editDate.setText(dateFormatter.format(d));
             editTime.setText(timeFormatter.format(d));
             editTitle.setText(tr.getTitle());
             spStatuses.setSelection(tr.getActive());
+            spImportance.setSelection(tr.getImportance());
+            spRecurrence.setSelection(tr.getRecurrence());
+            if(tr.getColour() != null) spColour.setSelection(tr.getColour());
             editMessage.setText(tr.getMessage());
-            if(tr.getRecipientName() != null) txtToName.setText(tr.getRecipientName());
+
         }
 
-        if(id == 0) spStatuses.setSelection(ACTIVE);
+        if(id == 0) {
+            spStatuses.setSelection(ACTIVE);
+            SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(this);
+            String ledColourIndex = SP.getString("nr_colour", "");
+            int index = 0;
+            if(!ledColourIndex.isEmpty()) {
+                try{
+                    index = Integer.parseInt(ledColourIndex);
+                }catch(NumberFormatException e){
+                    Log.d("Mine", "The led colour setting isn't a parsable number");
+                }
+            }
+            spColour.setSelection(index);
+
+        }
 
         editDate.setOnClickListener(this);
         editTime.setOnClickListener(this);
@@ -116,18 +128,18 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
                 selectSave();
                 break;
             case R.id.action_cancel:
-                selectCancel(DisplayTextRemindersActivity.class);
+                selectCancel(DisplayNotificationRemindersActivity.class);
                 break;
             case R.id.action_delete:
                 if(id > 0) {
-                    selectDelete(id, TM_TYPE);
+                    selectDelete(id, NR_TYPE);
                 }
                 break;
             case R.id.action_fav:
                 selectFavourites();
                 break;
-            case R.id.action_nm:
-                goToDisplayNotificationReminder();
+            case R.id.action_tm:
+                goToDisplayTextReminder();
                 break;
             case R.id.action_settings:
                 selectSettings();
@@ -142,14 +154,13 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void selectSave() {
 
-        String inputTo = editTo.getText().toString();
         String inputTitle = editTitle.getText().toString();
         String inputMsg = editMessage.getText().toString();
         String inputDate = editDate.getText().toString();
         String inputTime = editTime.getText().toString();
 
-        String[] inputs = {inputTo,inputTitle,inputDate,inputTime,inputMsg};
-        int[] errMsgIds = {R.string.err_phone_number_blank,R.string.err_title_blank,R.string.err_due_date_blank,
+        String[] inputs = {inputTitle,inputDate,inputTime,inputMsg};
+        int[] errMsgIds = {R.string.err_title_blank,R.string.err_due_date_blank,
                 R.string.err_due_time_blank,R.string.err_message_blank};
         //Yay a loop to check them all!
         for(int i = 0; i < inputs.length; i++) {
@@ -158,10 +169,6 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
                 return;
             }
         }
-/*        if(!PhoneNumberUtils.isGlobalPhoneNumber(inputTo)) {
-            Toast.makeText(context, getResources().getString(R.string.err_phone_number_invalid), Toast.LENGTH_LONG).show();
-            return;
-        }*/
 
         Date dueDate;
 
@@ -173,34 +180,28 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
                 return;
             }
 
-            TextReminder tr = new TextReminder();
-            tr.setRecipientNumber(inputTo);
+            NotificationReminder tr = new NotificationReminder();
             tr.setActive(spStatuses.getSelectedItemPosition());
             tr.setTitle(inputTitle);
             tr.setDueDate(dueDate.getTime());
             tr.setMessage(inputMsg);
-            //TODO find a better way of dealing with this
-            //makes sure the phone number hasn't changed since the name was set
-            if(txtToName.getText().length() > 0  && recipientNumber != null) {
-                if(!recipientNumber.equals(editTo.getText().toString())) {
-                    tr.setRecipientName(txtToName.getText().toString());
-                }
-
-            }
+            tr.setColour(spColour.getSelectedItemPosition());
+            tr.setImportance(spImportance.getSelectedItemPosition());
+            tr.setRecurrence(spRecurrence.getSelectedItemPosition());
 
             db = RemindersDBHelper.getInstance(getApplicationContext());
             if(id > 0) {
-                Alarm.cancelAlarm(this.getApplicationContext(), TM_TYPE, id);
+                Alarm.cancelAlarm(this.getApplicationContext(), NR_TYPE, id);
                 tr.setId(id);
-                int rows = db.updateTextReminder(tr);
+                int rows = db.updateNotificationReminder(tr);
                 if(rows > 0)Toast.makeText(context, getResources().getString(R.string.conf_update), Toast.LENGTH_LONG).show();
             } else {
-                long newId = db.createTextReminder(tr);
+                long newId = db.createNotificationReminder(tr);
                 tr.setId(newId);
                 if(newId > 0) Toast.makeText(context, getResources().getString(R.string.conf_create), Toast.LENGTH_LONG).show();
             }
-            if(tr.getActive() == ACTIVE) Alarm.setAlarm(this.getApplicationContext(), TM_TYPE, tr.getId(), tr.getDueDate());
-            goToDisplayTextReminder();
+            if(tr.getActive() == ACTIVE) Alarm.setNotificationAlarm(this.getApplicationContext(), NR_TYPE, tr.getId(), tr.getDueDate(), tr.getRecurrence());
+            goToDisplayNotificationReminder();
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -219,32 +220,6 @@ public class TextReminderActivity extends BaseActivity implements View.OnClickLi
             String inputTime = editTime.getText().toString();
             DialogFragment newFragment = TimePickerFragment.newInstance(inputTime, view.getId());
             newFragment.show(getFragmentManager(), "timePicker");
-        } else if(view.getId() == R.id.imgContact) {
-            Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-            i.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-            startActivityForResult(i, REQ_CODE_CONTACT);
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == REQ_CODE_CONTACT) {
-            if (resultCode == RESULT_OK) {
-                Uri contactUri = data.getData();
-                Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
-                if(cursor.moveToFirst()) {
-                    recipientNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                    recipientName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                    editTo.setText(recipientNumber);
-                    txtToName.setText(recipientName);
-                }
-                cursor.close();
-            }
-        }
-    }
-
-
-
-
 }

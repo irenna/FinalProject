@@ -2,10 +2,21 @@
 <resources>
 
     <array name="reminder_status_icons">
-        <item>0</item>
+        <item>@drawable/ic_hourglass_full_white_24dp</item>
         <item>@drawable/ic_done_white_24dp</item>
         <item>@drawable/ic_clear_white_24dp</item>
     </array>
+
+    <array name="importance_status_icons">
+        <item>0</item>
+        <item>@drawable/ic_priority_high_white_24dp</item>
+    </array>
+
+    <array name="notif_status_icons">
+        <item>@drawable/ic_notifications_off_black_24dp</item>
+        <item>@drawable/ic_notifications_active_black_24dp</item>
+    </array>
+
 
     <array name="colour_ids">
         <item>@color/aqua</item>
@@ -17,6 +28,17 @@
         <item>@color/red</item>
         <item>@color/white</item>
         <item>@color/yellow</item>
+    </array>
+
+
+    <array name="time_values">
+        <item>0</item>
+        <item>24</item>
+        <item>48</item>
+        <item>168</item>
+        <item>336</item>
+        <item>504</item>
+        <item>672</item>
     </array>
 
 

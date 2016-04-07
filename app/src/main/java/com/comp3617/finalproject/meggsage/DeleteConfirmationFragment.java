@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class DeleteConfirmationFragment extends DialogFragment {
 
     private static final int TM_TYPE = 0;
-    private static final int NM_TYPE = 1;
+    private static final int NR_TYPE = 1;
     private static final int FAV_TYPE = 2;
 
 
@@ -54,9 +54,13 @@ public class DeleteConfirmationFragment extends DialogFragment {
                     success = db.deleteTextReminder(id);
                     action = DisplayTextRemindersActivity.class;
                     Alarm.cancelAlarm(getContext().getApplicationContext(), type, id);
+                } else if (type == NR_TYPE) {
+                    success = db.deleteNotificationReminder(id);
+                    action = DisplayTextRemindersActivity.class;
+                    Alarm.cancelAlarm(getContext().getApplicationContext(), type, id);
                 }
                 db.close();
-                if(action != null && success){
+                if (action != null && success) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.conf_del_success), Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getActivity(), action);
                     startActivity(i);
