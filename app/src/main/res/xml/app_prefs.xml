@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <PreferenceCategory android:title="Advanced Settings">
-
+    <PreferenceCategory android:title="@string/pref_gen_header">
+        <ListPreference android:entries="@array/activities" android:defaultValue="@string/text_reminder" android:entryValues="@array/activities" android:key="default_activity" android:summary="%s" android:title="@string/default_act_title" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Text Reminder Notifications">
-        <CheckBoxPreference android:defaultValue="true" android:summary="Enables notifications for when a text reminder is sent" android:key="trEnableNotifications" android:title="Enable Text Reminder Sent Notifications"/>
-        <RingtonePreference android:ringtoneType="notification" android:showSilent="true" android:key="trRingTone" />
-        <CheckBoxPreference android:defaultValue="true" android:summary="Enable vibrate for notifications when a text reminder is sent" android:key="trVibrate" />
-        <ListPreference android:entries="@array/colour_ids" android:entryValues="@array/colour_names" android:key="trColor" android:summary="Select the LED colour" android:title="Light Colour"/>
+    <PreferenceCategory android:title="@string/pref_tr_header">
+        <CheckBoxPreference android:defaultValue="true" android:summary="@string/prefs_tr_notif_enable_sum" android:key="tr_enable_notifications" android:title="@string/prefs_tr_notif_enable_title" />
+        <RingtonePreference android:ringtoneType="notification" android:showSilent="true" android:key="tr_ringtone" android:dependency="tr_enable_notifications" android:summary="@string/prefs_select_sound" android:title="@string/prefs_title_sound" />
+        <CheckBoxPreference android:defaultValue="true" android:summary="@string/prefs_tr_vibrate_sum" android:key="tr_vibrate" android:dependency="tr_enable_notifications"  android:title="@string/prefs_title_vibrate"/>
+        <ListPreference android:entries="@array/colour_names"   android:entryValues="@array/colour_names" android:key="tr_colour" android:summary="%s" android:title="@string/prefs_select_colour" android:dependency="tr_enable_notifications" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_hr_header">
+        <CheckBoxPreference android:defaultValue="true" android:summary="@string/prefs_nr_notif_enable_sum" android:key="nr_enable_notifications" android:title="@string/prefs_nr_notif_enable_title" />
+        <RingtonePreference android:ringtoneType="notification" android:showSilent="true" android:key="nr_ringtone" android:dependency="nr_enable_notifications" android:summary="@string/prefs_select_sound" android:title="@string/prefs_title_sound"/>
+        <CheckBoxPreference android:defaultValue="true" android:summary="@string/prefs_nr_vibrate_sum" android:key="nr_vibrate" android:dependency="nr_enable_notifications"  android:title="@string/prefs_title_vibrate"/>
+        <ListPreference android:entries="@array/colour_names" android:entryValues="@array/colour_names" android:key="nr_colour" android:summary="%s" android:title="@string/prefs_select_colour" android:dependency="nr_enable_notifications" />
     </PreferenceCategory>
 </PreferenceScreen>

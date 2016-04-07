@@ -137,7 +137,7 @@ public class RemindersDBHelper extends SQLiteOpenHelper {
 
     public ArrayList<TextReminder> getActiveTextReminders() {
         ArrayList<TextReminder> tms = new ArrayList<TextReminder>();
-        String selectQuery = "SELECT  * FROM " + TM_TABLE + " WHERE " + TM_COL_ACTIVE + " = 1";
+        String selectQuery = "SELECT  * FROM " + TM_TABLE + " WHERE " + TM_COL_ACTIVE + " = " + 1;
 
         Log.e(LOG, selectQuery);
 

@@ -41,10 +41,25 @@
         <item>Yellow</item>
     </string-array>
 
+    <string-array name="colour_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+
     <string-array name="activities">
         <item>Text Reminders</item>
         <item>Notification Reminders</item>
     </string-array>
+
+    <string name="text_reminder">Text Reminder</string>
 
 
     <string name="label_title">Title:</string>
@@ -73,12 +88,25 @@
     <string name="conf_del_success">Reminder deleted</string>
     <string name="conf_tr_title">Text Reminder</string>
     <string name="conf_tr_sent">Text reminder successfully sent to </string>
-    <string name="conf_tr_sent2">Text reminder successfully sent!</string>
+    <string name="conf_tr_sent2">Text reminder sent!</string>
 
     <string name="msg_tr_failed">Some reminders did not send :(</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="pref_gen_header">General</string>
+    <string name="pref_tr_header">Text Reminder</string>
+    <string name="pref_hr_header">Notification Reminder</string>
+    <string name="prefs_tr_notif_enable_sum">Enables notifications for when a text reminder is sent</string>
+    <string name="prefs_tr_notif_enable_title">Text Reminder Sent Notifications</string>
+    <string name="prefs_select_sound">Select notification tone</string>
+    <string name="prefs_title_sound">Sound</string>
+    <string name="prefs_title_vibrate">Vibrate</string>
+    <string name="prefs_tr_vibrate_sum">Enable vibrate for notifications when a text reminder is sent</string>
+    <string name="prefs_nr_notif_enable_sum">Enables notifications for when a reminder is sent</string>
+    <string name="prefs_nr_notif_enable_title">Reminder Notifications</string>
+    <string name="prefs_nr_vibrate_sum">Enable vibrate for notifications</string>
+    <string name="prefs_select_colour">Light Colour</string>
+    <string name="default_act_title">Default View</string>
 
 
     <string name="test_long_text">The quick brown fox jumped over the slow lazy dog.  The quick brown fox jumped over the slow lazy dog.</string>

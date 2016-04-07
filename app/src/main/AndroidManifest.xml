@@ -36,7 +36,8 @@
         </receiver>
 
         <activity android:name=".NotificationReminder" />
-        <activity android:name=".DisplayNotificationRemindersActivity"></activity>
+        <activity android:name=".DisplayNotificationRemindersActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

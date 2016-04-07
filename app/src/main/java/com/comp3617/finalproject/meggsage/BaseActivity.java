@@ -43,11 +43,13 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void selectNotificationReminder() {
-        //do stuff
+        Intent i = new Intent(this, DisplayNotificationRemindersActivity.class);
+        startActivity(i);
     }
 
     protected void selectSettings() {
-        //do stuff
+        Intent i = new Intent(this, SettingsActivity.class);
+        startActivity(i);
     }
 
     protected void selectFavourites() {
