@@ -19,7 +19,7 @@ public class DeleteConfirmationFragment extends DialogFragment {
     private static final int NR_TYPE = 1;
     private static final int FAV_TYPE = 2;
 
-
+    private static final String FROM_ACT = "from_other_act";
 
     public DeleteConfirmationFragment() {
         // Required empty public constructor
@@ -56,13 +56,14 @@ public class DeleteConfirmationFragment extends DialogFragment {
                     Alarm.cancelAlarm(getActivity(), type, id);
                 } else if (type == NR_TYPE) {
                     success = db.deleteNotificationReminder(id);
-                    action = DisplayTextRemindersActivity.class;
+                    action = DisplayNotificationRemindersActivity.class;
                     Alarm.cancelAlarm(getActivity(), type, id);
                 }
                 db.close();
                 if (action != null && success) {
                     Toast.makeText(getActivity(), getResources().getString(R.string.conf_del_success), Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getActivity(), action);
+                    i.putExtra(FROM_ACT, true);
                     startActivity(i);
                 } else {
                     dialog.dismiss(); //shouldn't happen, but lets not get stuck...

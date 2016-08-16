@@ -76,6 +76,8 @@
     <string name="text_reminder">Text Reminders</string>
     <string name="notification_reminder">Notification Reminders</string>
 
+    <string name="imp_reminder">Important Reminder!</string>
+
 
     <string name="label_title">Title:</string>
     <string name="label_due_date">Reminder Date:</string>

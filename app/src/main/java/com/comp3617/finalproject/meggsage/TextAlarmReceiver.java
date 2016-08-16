@@ -137,6 +137,7 @@ public class TextAlarmReceiver extends BroadcastReceiver {
 
             Notification.InboxStyle inboxStyle = new Notification.InboxStyle();
             inboxStyle.setBigContentTitle(nr.getTitle());
+            if(nr.getImportance() == 1) inboxStyle.addLine(context.getResources().getString(R.string.imp_reminder));
             inboxStyle.addLine(nr.getMessage());
             builder.setStyle(inboxStyle);
 
